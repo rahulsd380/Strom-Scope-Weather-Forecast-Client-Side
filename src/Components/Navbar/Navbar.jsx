@@ -63,7 +63,7 @@ const Navbar = () => {
           
 
               <Link to={"/signup"}>
-                <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 font-semibold border-blue-400 rounded-md py-2 px-6">
+                <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 font-semibold border-blue-400 rounded-md py-2 px-6 over:from-blue-500 hover:to-cyan-500">
                   Sign Up
                 </button>
               </Link>
