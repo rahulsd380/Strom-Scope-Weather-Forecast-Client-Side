@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import SideBarDrawer from "../SideBarDrawer/SideBarDrawer";
 import UserDropdownMenu from "../UserDropdownMenu/UserDropdownMenu";
 
 const Navbar = () => {
+    const {user} = useContext(AuthContext);
 
 
   return (
     <div className="px-5 shadow-lg border-b md:shadow-none md:border-none top-0 py-3">
-      <div className="flex justify-between items-center gap-2">
+      <div className="flex justify-between items-center gap-2 ">
         <SideBarDrawer></SideBarDrawer>
         <div className="flex items-center gap-3">
           <img
@@ -60,27 +61,16 @@ const Navbar = () => {
 
 
         <div className="flex items-center">
-          
-
-              <Link to={"/signup"}>
-                <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 font-semibold border-blue-400 rounded-md py-2 px-6 over:from-blue-500 hover:to-cyan-500">
-                  Sign Up
-                </button>
-              </Link>
-            </div>
-        </div>
-
-        {/* <div className="flex items-center">
           {!user ? (
             <div className="hidden md:flex gap-5">
-              <Link to={"/login"}>
-                <button className="text-blue-500 border border-blue-400 font-semibold  rounded-md hover:bg-blue-400 transition duration-300 hover:text-white px-6 py-2">
-                  Login
+              <Link to={"/signin"}>
+                <button className="text-blue-400 border border-blue-400 font-semibold  rounded-md hover:bg-blue-400 transition duration-300 hover:text-white px-6 py-2">
+                  Sign In
                 </button>
               </Link>
 
               <Link to={"/signup"}>
-                <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 font-semibold border-blue-400 rounded-md py-2 px-6">
+                <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 font-semibold border-blue-400 rounded-md py-2 px-6 hover:from-blue-500 hover:to-cyan-500">
                   Sign Up
                 </button>
               </Link>
@@ -96,7 +86,10 @@ const Navbar = () => {
           ) : (
             ""
           )}
-        </div> */}
+        </div>
+        </div>
+
+        
       </div>
     </div>
   );

@@ -1,10 +1,53 @@
-import { Link } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAxiosClient from "../../hooks/useAxiosClient";
 
 const Signin = () => {
+    const {login, googleSignUp} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const axiosUser = useAxiosClient();
 
+    const handleLogin = e => {
+        e.preventDefault();
+        const form = new FormData(e.currentTarget);
+        const email = form.get('email');
+        const password = form.get('password');
+        console.log(email, password);
+        const toastId = toast.loading("Signing In...")
+        login(email, password)
+        .then(result => {
+            console.log(result.user);
+            if (result.user?.email) {
+                toast.success("Signed in successfully.", { id: toastId });
+                navigate(location?.state ? location.state : "/");
+              }
+            navigate( "/")
+        })
+        .catch(error => {
+            console.error(error);
+        })
+    }
+
+
+    const googleSignIn = () => {
+        googleSignUp()
+        .then(result => {
+            console.log(result.user);
+            const userInfo = {
+                name: result.user?.displayName,
+                email: result.user?.email
+            }
+            axiosUser.post('/users',userInfo )
+            .then(res => {
+                console.log(res);
+                navigate( "/")
+            })
+        })
+    }
 
     return (
       <div>
@@ -13,7 +56,7 @@ const Signin = () => {
      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 items-center bg-white rounded-3xl md:rounded-md shadow-md border border-gray-300">
 
        {/* Left side form */}
-       <form className="p-14" >
+       <form onSubmit={handleLogin} className="p-14" >
        <div>
        <div className="flex justify-center mb-3">
        <div className="flex items-center gap-3">
@@ -63,7 +106,7 @@ const Signin = () => {
               <p className="textgray-600 font-semibold text-blue-400">Forgot Password?</p>
            </div>
 
-           <button className="w-full font-semibold transition duration-300 bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 rounded text-white mb-3 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500">
+           <button onClick={googleSignIn} className="w-full font-semibold transition duration-300 bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 rounded text-white mb-3 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500">
              Sign In
            </button>
 
