@@ -17,7 +17,8 @@ const Signup = () => {
       const name = e.target.name.value;
       const email = e.target.email.value;
       const password = e.target.password.value;
-      console.log( email, name, password);
+      const status = "active"
+      console.log( email, name, password, status);
 
       const toastId = toast.loading("Signing up...")
 
@@ -26,7 +27,7 @@ const Signup = () => {
       console.log(result.user);
       updateProfileInfo(name)
       .then(() => {
-        const userInfo = { name, email };
+        const userInfo = { name, email, status };
         axiosUser.post("/users", userInfo)
         .then((res) => {
           console.log(res.data);
@@ -58,8 +59,6 @@ const Signup = () => {
       })
   }
 
-// onSubmit={handleSignUp}
-// onClick={googleSignIn}
 
     return (
       <div>
@@ -68,7 +67,7 @@ const Signup = () => {
      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 items-center bg-white rounded-3xl md:rounded-md shadow-md border border-gray-300">
 
        {/* Left side form */}
-       <form className="p-14" >
+       <form onSubmit={handleSignUp} className="p-14" >
        <div>
        <div className="flex justify-center mb-3">
        <div className="flex items-center gap-3">
@@ -136,7 +135,7 @@ const Signup = () => {
            <p className="mb-3 text-center text-gray-600 font-semibold">Or,</p>
 
 
-           <button className="w-full font-semibold transition duration-300 border border-gray-300 hover:shadow-md px-4 py-2 rounded text-gray-600 mb-3 flex items-center gap-2 justify-center">
+           <button onClick={googleSignIn} className="w-full font-semibold transition duration-300 border border-gray-300 hover:shadow-md px-4 py-2 rounded text-gray-600 mb-3 flex items-center gap-2 justify-center">
            <FcGoogle></FcGoogle> Coninue with Google
            </button>
 
