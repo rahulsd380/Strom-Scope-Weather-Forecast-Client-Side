@@ -104,9 +104,10 @@ const AllUserTable = ({ user, index }) => {
           console.log(userRes.data);
           if(userRes.data.insertedId){
             reset();
+            refetch();
             Swal.fire({
               icon: "success",
-              title: "Your work has been saved",
+              title: "Your profile has been updated",
               showConfirmButton: false,
               timer: 1500
             });
@@ -122,13 +123,18 @@ const AllUserTable = ({ user, index }) => {
       <td className="flex items-center gap-2">
         {
           image ?
-          <div className="avatar online">
+          <div className={`avatar ${status == "active" ? "online" : "offline"}`}>
           <div className="w-10 rounded-full">
             <img src={image} />
           </div>
         </div>
         : 
-        <FaUserCircle className="text-4xl text-blue-500"></FaUserCircle>
+        <div className={`avatar ${status == "active" ? "online" : "offline"}`}>
+          <div className="w-10 rounded-full">
+          <FaUserCircle className="text-4xl text-blue-500"></FaUserCircle>
+          </div>
+        </div>
+        
         }
       
      
