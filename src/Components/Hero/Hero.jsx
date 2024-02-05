@@ -10,7 +10,7 @@ const Hero = () => {
         <div className="max-w-6xl mx-auto py-10 md:py-0">
  <div className="grid grid-cols-1 md:grid-cols-2 items-center px-5 md:px-0">
             <div>
-                <h1 className="text-3xl md:text-5xl font-bold leading-[3rem] md:leading-[4rem] mb-5"><span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">Strom Scope:</span> Navigating You Through Weather's Symphony</h1>
+                <h1 className="text-gray-600 text-3xl md:text-5xl font-bold leading-[3rem] md:leading-[4rem] mb-5"><span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">Strom Scope:</span> Navigating You Through Weather's Symphony</h1>
                 <p className="mb-5">Discover weather clarity with Strom Scope. Navigate forecasts confidently and stay ahead. Your go-to for precision weather insights, ensuring you're prepared for every atmospheric shift. Welcome to Strom Scope!</p>
                 
                 <div className="flex items-center">

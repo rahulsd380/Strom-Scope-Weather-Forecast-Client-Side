@@ -1,6 +1,7 @@
 import Footer from "../Footer/Footer";
 import Hero from "../Hero/Hero";
 import Navbar from "../Navbar/Navbar";
+import WeatherCard from "../Weather/WeatherCard";
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <div>
             <Navbar></Navbar>
             <Hero></Hero>
+            <WeatherCard></WeatherCard>
             <Footer></Footer>
         </div>
     );
