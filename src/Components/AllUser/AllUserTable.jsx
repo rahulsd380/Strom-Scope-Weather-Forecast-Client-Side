@@ -7,12 +7,15 @@ import { MdAddCard } from "react-icons/md";
 import { MdOutlineAirplanemodeInactive } from "react-icons/md";
 import useAxiosClient from "../../hooks/useAxiosClient";
 import useAllUser from "../../hooks/useAllUser";
+import { MdAirplanemodeActive } from "react-icons/md";
 
 
 const AllUserTable = ({ user, index }) => {
     const { _id, name, email, status, addedDate } = user;
     const axiosUser = useAxiosClient();
     const [, , refetch] = useAllUser();
+
+    //Update user status active to inactive
     const handleMarkAsInactive = (item) => {
         axiosUser.patch(`/users/inactive/${item._id}`).then((res) => {
           console.log(res.data);
@@ -20,6 +23,23 @@ const AllUserTable = ({ user, index }) => {
         //   refetch();
           if (res.data.modifiedCount > 0) {
             toast.success(` ${name}'s status changed to inactive`, {
+              id: toastId,
+              duration: 3000
+            });
+            refetch();
+          }
+        });
+      };
+
+
+    //Update user status inactive to active
+      const handleMarkAsActive = (item) => {
+        axiosUser.patch(`/users/active/${item._id}`).then((res) => {
+          console.log(res.data);
+          const toastId = toast.loading("Updating status...");
+        //   refetch();
+          if (res.data.modifiedCount > 0) {
+            toast.success(` ${name}'s status changed to active`, {
               id: toastId,
               duration: 3000
             });
@@ -47,13 +67,30 @@ const AllUserTable = ({ user, index }) => {
             <MdDelete></MdDelete>
           </button>
 
-          <button
+          
+
+          {
+            status == "active" ? 
+            <button
             onClick={() => {handleMarkAsInactive(user)}}
             className="p-2 border rounded-md bg-gray-50 flex justify-center items-center tooltip text-orange-600"
             data-tip="Mark As Inactive"
           >
             <MdOutlineAirplanemodeInactive></MdOutlineAirplanemodeInactive>
           </button>
+
+          :
+        <button
+            onClick={() => {handleMarkAsActive(user)}}
+            className="p-2 border rounded-md bg-gray-50 flex justify-center items-center tooltip text-green-600"
+            data-tip="Mark As Inactive"
+          >
+            <MdAirplanemodeActive></MdAirplanemodeActive>
+          </button>
+
+          }
+
+          
 
           <div className="">
             {/* Open the modal using document.getElementById('ID').showModal() method */}
