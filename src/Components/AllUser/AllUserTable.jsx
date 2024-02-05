@@ -8,10 +8,15 @@ import { MdAirplanemodeActive } from "react-icons/md";
 import Swal from "sweetalert2";
 import { FaUserCircle } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+const imgApiKey = '763882e480dd8ab664d9058115562cab';
+
+// Construct the API URL using the key
+const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgApiKey}`;
 
 
 const AllUserTable = ({ user, index }) => {
-    const { _id, name, email, status, addedDate } = user;
+    const { _id, name, email, status, addedDate, country, dob, gender, image, phone } = user;
     const axiosUser = useAxiosClient();
     const [, , refetch] = useAllUser();
 
@@ -77,20 +82,64 @@ const AllUserTable = ({ user, index }) => {
       };
 
 
+      const { register, handleSubmit, reset } = useForm();
+    const onSubmit = async (data) => {
+        console.log(data);
+        const imageFile = { image : data.image[0]}
+        const res = await axiosUser.post(imgHostingApi, imageFile, {
+          headers : {
+            'content-type' : 'multipart/form-data'
+          }
+        });
+        if(res.data.success){
+          const updatedInfo = {
+            country: data.country,
+            gender: data.gender,
+            dob: data.dob,
+            phone: data.phone,
+            image: res.data.data.display_url
+          }
+          console.log(updatedInfo);
+          const userRes = await axiosUser.patch(`/users/${_id}`, updatedInfo);
+          console.log(userRes.data);
+          if(userRes.data.insertedId){
+            reset();
+            Swal.fire({
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        }
+        console.log(res.data);
+      };
+
+
     return (
             <tr className="bg-gradient-to-r from-slate-100 to-emerald-100 border-b-1 pb-2 border-gray-300">
       <td>{index + 1}</td>
       <td className="flex items-center gap-2">
-      <FaUserCircle className="text-4xl text-blue-500"></FaUserCircle>
-      <div className="avatar online">
-  <div className="w-10 rounded-full">
-    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-  </div>
-</div>
+        {
+          image ?
+          <div className="avatar online">
+          <div className="w-10 rounded-full">
+            <img src={image} />
+          </div>
+        </div>
+        : 
+        <FaUserCircle className="text-4xl text-blue-500"></FaUserCircle>
+        }
+      
+     
         {name}
         </td>
       <td>{email}</td>
       <td>{addedDate}</td>
+      <td>{country ? country : "N/A"}</td>
+      <td>{dob ? dob : "N/A"}</td>
+      <td>{gender ? gender : "N/A"}</td>
+      <td>{phone ? phone : "N/A"}</td>
       <td>{status}</td>
       <td>
         <div className="flex items-center gap-2">
@@ -144,13 +193,13 @@ const AllUserTable = ({ user, index }) => {
                   Add more information about yourself
                 </h3>
                 {/* onSubmit={(e) => handleUpdateTask(e, _id)} */}
-                <form >
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-1 gap-3">
                     <div>
                       <p className="mb-1 font-semibold text-gray-600">Country</p>
                       <input
+                      {...register("country")}
                         required
-                        name="country"
                         className="bg-white border border-gray-400 outline-none px-2 py-1 rounded w-full"
                         type="text"
                         placeholder="Your country"
@@ -162,16 +211,16 @@ const AllUserTable = ({ user, index }) => {
                         Gender
                       </p>
                       <select
+                      {...register("gender")}
                       required
-                        name="gender"
                         className="bg-white border border-gray-400 outline-none px-2 py-1 rounded w-full"
                       >
                         <option disabled selected>
                           Select
                         </option>
-                        <option value="low">Male</option>
-                        <option value="moderate">Female</option>
-                        <option value="moderate">Prefer not to say</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
                       </select>
                     </div>
 
@@ -179,8 +228,8 @@ const AllUserTable = ({ user, index }) => {
                     <div>
                       <p className="mb-1 font-semibold text-gray-600">Date of Birth</p>
                       <input
+                      {...register("dob")}
                         required
-                        name="dob"
                         className="bg-white border border-gray-400 outline-none px-2 py-1 rounded w-full"
                         type="date"
                       />
@@ -189,8 +238,8 @@ const AllUserTable = ({ user, index }) => {
                     <div>
                       <p className="mb-1 font-semibold text-gray-600">Phone Number</p>
                       <input
+                      {...register("phone")}
                         required
-                        name="phone"
                         className="bg-white border border-gray-400 outline-none px-2 py-1 rounded w-full"
                         type="number"
                         placeholder="+880 11324334"
@@ -199,7 +248,7 @@ const AllUserTable = ({ user, index }) => {
 
                     <div>
                       <p className="mb-1 font-semibold text-gray-600">Profile Picture</p>
-                      <input required type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
+                      <input {...register("image")} required type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
                     </div>
 
                     
@@ -208,7 +257,7 @@ const AllUserTable = ({ user, index }) => {
                   </div>
 
                   <div className="flex flex-row-reverse items-center gap-9">
-                    <button className="text-gray-200 font-semibold px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-md w-full text-center mt-5">
+                    <button className="text-gray-200 font-semibold px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md w-full text-center mt-5">
                       Save Changes
                     </button>
 

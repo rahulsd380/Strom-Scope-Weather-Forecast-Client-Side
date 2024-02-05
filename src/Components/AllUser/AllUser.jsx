@@ -7,6 +7,10 @@ import finding from "../../../public/finding.json"
 import AllUserTable from "./AllUserTable";
 import { FaUsers } from "react-icons/fa6";
 import { useState } from "react";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
+import { TiWeatherPartlySunny } from "react-icons/ti";
+
 
 
 const AllUser = () => {
@@ -14,25 +18,61 @@ const AllUser = () => {
 
     const [sortByActive, setSortByActive] = useState(false);
     const [sortByInactive, setSortByInactive] = useState(false);
+    const [sortByAll, setSortByAll] = useState(true);
+    const [dateFilter, setDateFilter] = useState(null);
+
+
+    const handleSortByDate = (selectedDate) => {
+      setDateFilter(selectedDate);
+      // Clear other filters when due date filter is applied
+      setSortByActive(false);
+      setSortByInactive(false);
+    };
+
 
   const handleSortByActive = () => {
     setSortByActive(true);
     setSortByInactive(false);
+    setDateFilter(false)
   };
 
   const handleSortByInactive = () => {
     setSortByInactive(true); 
     setSortByActive(false);
+    setDateFilter(false)
   };
-      // Filter task
-  const filteredUser = allUser.filter((user) => {
-    const active = sortByActive ? user.status === "active" : true;
-    const inactive = sortByInactive ? user.status.toLowerCase() === "inactive" : true;
 
-    return active && inactive;
-  });
+  const handleSortByAll = () => {
+    setSortByActive(false);
+    setSortByInactive(false);
+    setDateFilter(null);
+    setSortByAll(true);
+  };
+
+
+      // Filter task
+      const filteredUser = allUser.filter((user) => {
+        const active = sortByActive ? user.status === "active" : true;
+        const inactive = sortByInactive ? user.status.toLowerCase() === "inactive" : true;
+        const date = dateFilter ?
+            new Date(user.addedDate).getFullYear() === new Date(dateFilter).getFullYear() &&
+            new Date(user.addedDate).getMonth() === new Date(dateFilter).getMonth() &&
+            new Date(user.addedDate).getDate() === new Date(dateFilter).getDate()
+          : true;
+      
+        return active && inactive && date && sortByAll;
+      });
+      
+
+
     return (
-        <div className="max-w-7xl mx-auto pb-10">
+        <div>
+          <Navbar></Navbar>
+          <div className="max-w-7xl mx-auto py-10">
+          <div className="mb-10">
+                <h1 className="text-2xl font-bold text-gray-600 mb-1 flex items-center gap-1 justify-center">Effortlessly Manage User Data: Streamlining Information with Intuitive Tools <FaUsers className="text-yellow-400"></FaUsers></h1>
+                <p className="text-center text-gray-500">Experience streamlined user data management. Our intuitive tools empower you to effortlessly organize, update, and interact with user information, ensuring efficiency and ease in every aspect of user data handling.</p>
+            </div>
       <div className="flex gap-3 md:gap-0 flex-wrap items-center justify-between">
         <div>
         <h1 className="text-2xl text-gray-500 font-bold flex items-center gap-2">
@@ -49,7 +89,11 @@ const AllUser = () => {
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                 <li>
-                
+                  <a onClick={handleSortByAll}>
+                    All
+                  </a>
+                </li>
+                <li>
                   <a onClick={() => handleSortByActive("active")}>
                     Active
                   </a>
@@ -64,14 +108,16 @@ const AllUser = () => {
           <div className="flex items-center gap-2">
             <p className="text-gray-600 font-semibold">Filter By Added Date:</p>
             <input
+            onChange={(e) => handleSortByDate(e.target.value)}
+            value={dateFilter}
               type="date"
             //   onChange={(e) => handleDueDateFilter(e.target.value)}
             //   value={dueDateFilter || ""}
               className="border border-gray-300 px-2 py-1 rounded"
             />
           </div>
-          <Link to={"/dashboard/addTask"}>
-            <button className="text-white font-semibold px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500  transition duration-300 rounded-md text-center">
+          <Link>
+            <button className="text-white font-semibold px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 rounded-md text-center">
               Add New User
             </button>
           </Link>
@@ -89,6 +135,10 @@ const AllUser = () => {
               <th>User Name</th>
               <th>Email</th>
               <th>Added Date</th>
+              <th>Country</th>
+              <th>Date Of Birth</th>
+              <th>Gender</th>
+              <th>Phone</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -115,6 +165,8 @@ const AllUser = () => {
 
       <Toaster position="bottom-center" reverseOrder={false} />
     </div>
+    <Footer></Footer>
+        </div>
     );
 };
 
