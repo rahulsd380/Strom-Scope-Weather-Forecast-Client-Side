@@ -52,10 +52,10 @@ const Navbar = () => {
           </Link>
 
             <Link
-            to={"/dashboard/"}
+            to={"/allUser"}
             className="hover:text-blue-400 transition duration-300 text-gray-500 font-semibold "
           >
-            Dashboard
+            Manage User
           </Link>
         </div>
 

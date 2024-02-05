@@ -73,7 +73,7 @@ const SideBarDrawer = () => {
                 className="text-gray-300 font-semibold hover:text-blue-400 transition duration-300 flex items-center gap-3 text-base"
               >
                 <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>{" "}
-                Dashboard
+                Manage User
               </Link>
             </li>
           </ul>

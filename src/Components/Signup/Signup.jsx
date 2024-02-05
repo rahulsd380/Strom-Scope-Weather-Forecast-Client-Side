@@ -27,7 +27,16 @@ const Signup = () => {
       console.log(result.user);
       updateProfileInfo(name)
       .then(() => {
-        const userInfo = { name, email, status };
+        const userInfo = { 
+          name, 
+          email, 
+          status,
+          addedDate : new Date().toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        };
         axiosUser.post("/users", userInfo)
         .then((res) => {
           console.log(res.data);

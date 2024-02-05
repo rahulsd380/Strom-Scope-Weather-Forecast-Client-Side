@@ -69,7 +69,7 @@ const UserDropdownMenu = () => {
               to={"/dashboard/allTasks"}
               className="hover:text-blue-400 transition duration-300 text-gray-300 font-semibold mt-7 mb-2 border-b border-blue-900 pb-1"
             >
-              Dashboard
+              Manage User
             </Link>
 
             <Link
