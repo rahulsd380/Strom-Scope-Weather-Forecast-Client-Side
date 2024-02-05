@@ -1,15 +1,32 @@
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaPersonRunning } from "react-icons/fa6";
 import { IoMdDoneAll } from "react-icons/io";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { MdCancelPresentation, MdDelete, MdModeEditOutline } from "react-icons/md";
 import { MdAddCard } from "react-icons/md";
 import { MdOutlineAirplanemodeInactive } from "react-icons/md";
+import useAxiosClient from "../../hooks/useAxiosClient";
+import useAllUser from "../../hooks/useAllUser";
 
 
 const AllUserTable = ({ user, index }) => {
-    const { _id, name, email, status, addedDate } =
-    user;
+    const { _id, name, email, status, addedDate } = user;
+    const axiosUser = useAxiosClient();
+    const [, , refetch] = useAllUser();
+    const handleMarkAsInactive = (item) => {
+        axiosUser.patch(`/users/inactive/${item._id}`).then((res) => {
+          console.log(res.data);
+          const toastId = toast.loading("Updating status...");
+        //   refetch();
+          if (res.data.modifiedCount > 0) {
+            toast.success(` ${name}'s status changed to inactive`, {
+              id: toastId,
+              duration: 3000
+            });
+            refetch();
+          }
+        });
+      };
     return (
             <tr className="bg-gradient-to-r from-slate-100 to-emerald-100 border-b-1 pb-2 border-gray-300">
       <td>{index + 1}</td>
@@ -31,7 +48,7 @@ const AllUserTable = ({ user, index }) => {
           </button>
 
           <button
-            
+            onClick={() => {handleMarkAsInactive(user)}}
             className="p-2 border rounded-md bg-gray-50 flex justify-center items-center tooltip text-orange-600"
             data-tip="Mark As Inactive"
           >

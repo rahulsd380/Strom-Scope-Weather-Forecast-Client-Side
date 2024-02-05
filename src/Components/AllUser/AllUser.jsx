@@ -9,7 +9,7 @@ import AllUserTable from "./AllUserTable";
 
 
 const AllUser = () => {
-    const [allUser, isLoading, refetch] = useAllUser();
+    const [allUser, isLoading, ] = useAllUser();
     return (
         <div className="max-w-7xl mx-auto pb-10">
       <div className="flex gap-3 md:gap-0 flex-wrap items-center justify-between">
