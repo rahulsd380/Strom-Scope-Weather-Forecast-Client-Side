@@ -64,7 +64,7 @@ const Footer = () => {
           </nav>
         </footer>
 
-        <div className="flex justify-between items-center px-10 border-t pt-2 border-gray-500">
+        <div className="flex flex-wrap gap-5 md:gap-0 justify-between items-center px-10 border-t pt-2 border-gray-500">
           <div className="flex items-center gap-2">
             <FaRegCircleUser className="text-blue-400"></FaRegCircleUser>
             <p className="text-gray-400 text-sm text-center font-semibold">
