@@ -19,7 +19,7 @@ You can access the live version of this project here: [View Site](https://strom-
 
 ## How to Use?
 - **Create a Task:** 
-  - Click on the side button to create an account.
+  - Click on the signup button to create an account.
   - Log in after create your account.
   - You can get your weather info by just typing Your city name.
   - User can manage user information from the "Manage User" section.
