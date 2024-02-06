@@ -24,7 +24,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-7">
-        <div className="hidden md:flex md:items-center md:gap-8">
+        <div className="hidden lg:flex md:items-center md:gap-8">
           <Link
             to={"/"}
             className="hover:text-blue-400 transition duration-300 text-gray-500 font-semibold "

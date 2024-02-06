@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosUser = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://strom-scope-server-side.vercel.app'
 })
 
 const useAxiosClient = () => {

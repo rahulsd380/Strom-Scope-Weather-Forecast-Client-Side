@@ -69,11 +69,11 @@ const AllUser = () => {
         <div>
           <Navbar></Navbar>
           <div className="max-w-7xl mx-auto py-10">
-          <div className="mb-10">
-                <h1 className="text-2xl font-bold text-gray-600 mb-1 flex items-center gap-1 justify-center">Effortlessly Manage User Data: Streamlining Information with Intuitive Tools <FaUsers className="text-yellow-400"></FaUsers></h1>
+          <div className="mb-10 px-5 md:px-5 lg:px-0">
+                <h1 className="text-2xl font-bold text-gray-600 mb-1 flex items-center gap-1 justify-center ">Effortlessly Manage User Data: Streamlining Information with Intuitive Tools <FaUsers className="text-yellow-400"></FaUsers></h1>
                 <p className="text-center text-gray-500">Experience streamlined user data management. Our intuitive tools empower you to effortlessly organize, update, and interact with user information, ensuring efficiency and ease in every aspect of user data handling.</p>
             </div>
-      <div className="flex gap-3 md:gap-0 flex-wrap items-center justify-between">
+      <div className="flex gap-3 md:gap-5 flex-wrap items-center justify-between px-5 md:px-5">
         <div>
         <h1 className="text-2xl text-gray-500 font-bold flex items-center gap-2">
           <FaUsers className="text-blue-400"></FaUsers> Manage User Info

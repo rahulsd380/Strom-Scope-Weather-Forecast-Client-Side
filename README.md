@@ -3,7 +3,7 @@
 "Strom Scope is a dynamic and user-friendly web application that empowers you to comprehensively grasp the present weather climate and confidently navigate the upcoming conditions. It provides a seamless and immersive experience for those seeking accurate and timely weather forecasts at their fingertips."
 
 ## Live Link
-You can access the live version of this project here: [View Site](https://taskhub-connect.surge.sh/)
+You can access the live version of this project here: [View Site](https://strom-scope.web.app/)
 
 ## Project Description
 ""Strom Scope is a user-friendly web application that empowers you to comprehensively grasp the present weather climate and confidently navigate the upcoming conditions. It provides a seamless and immersive experience for those seeking accurate and timely weather forecasts at their fingertips."

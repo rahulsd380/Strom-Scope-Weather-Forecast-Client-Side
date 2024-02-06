@@ -20,7 +20,7 @@ const SideBarDrawer = () => {
   };
 
   return (
-    <div className="block md:hidden">
+    <div className="block lg:hidden">
       <div className="drawer">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
@@ -69,7 +69,7 @@ const SideBarDrawer = () => {
                 <LuFileQuestion></LuFileQuestion> FAQ
               </Link>
                 <Link
-                to={"/dashboard/allTasks"}
+                to={"/allUser"}
                 className="text-gray-300 font-semibold hover:text-blue-400 transition duration-300 flex items-center gap-3 text-base"
               >
                 <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>{" "}

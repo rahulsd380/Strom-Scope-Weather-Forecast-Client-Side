@@ -37,11 +37,11 @@ const WeatherCard = () => {
     return (
         <div className="max-w-6xl mx-auto py-10">
 
-            <div className="mb-7">
+            <div className="mb-7 px-5 lg:px-0">
                 <h1 className="text-2xl font-bold text-gray-600 mb-1 flex items-center gap-1 justify-center">Explore Your Local Weather with Real-time Updates and Accurate Forecasts <TiWeatherPartlySunny className="text-yellow-500"></TiWeatherPartlySunny></h1>
                 <p className="text-center text-gray-500">Discover the latest weather conditions and forecasts for your location. Stay informed with real-time updates on temperature, humidity, wind speed, and more. Plan your day confidently with accurate weather information at your fingertips.</p>
             </div>
-            <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl grid grid-cols-3 items-center gap-10">
+            <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl grid grid-cols-1 md:grid-cols-3 items-center gap-10 px-0 md:px-5 lg:px-0 py-0 md:py-5 lg:py-0">
 
 
 
@@ -50,7 +50,7 @@ const WeatherCard = () => {
                 <Lottie animationData={sun}></Lottie>
             </div>
 
-            <div className="col-span-2">
+            <div className="col-span-1 md:col-span-2 md:px-0 px-10 pb-5 md:pb-0">
                 <h1 className="text-xl font-semibold text-white mb-2 flex items-center gap-2"> <FaLocationDot></FaLocationDot>{weather.name ? weather.name + " , " + weather.sys.country : "Your City"}</h1>
                 <p className="text-white flex items-center gap-2 mb-5"><FaRegCalendarDays></FaRegCalendarDays>{date}</p>
                 <h1 className="text-5xl font-bold text-white mb-5 flex items-center gap-2"><FaTemperatureLow></FaTemperatureLow> {weather?.main?.temp}º F</h1>
